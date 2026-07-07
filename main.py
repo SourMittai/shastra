@@ -36,10 +36,10 @@ sun_x = 400
 earth_x = sun_x + px_dist
 earth_y = 300
 sun_pos = pygame.math.Vector2(sun_x, 300)
+real_sun_pos = pygame.math.Vector2(0, 0)
 earth_pos = pygame.math.Vector2(earth_x, earth_y)
-earth_vs = 0 #velocity towards star
-earth_vo = v #orbital velocity
-earth_a = real_a * scale_time ** 2
+real_earth_pos = pygame.math.Vector2(r, 0)
+earth_velocity = pygame.math.Vector2(0, v)
 
 
 running = True
@@ -52,19 +52,18 @@ while running:
 
 
     screen.fill((0, 0, 0))
-    sun = pygame.draw.circle(screen,(255, 0, 0), sun_pos, 10)
+
+    sun_screen_pos = (real_sun_pos / scale_dist) + sun_pos
+
+    sun = pygame.draw.circle(screen,(255, 0, 0), sun_screen_pos, 10)
     earth = pygame.draw.circle(screen, (173, 216, 230), earth_pos, 2)
 
     # Falling mechanic
-    earth_vs = (earth_vs + earth_a) / scale_dist
-    # distance = distance + earth_vs
-
-    direction_sun = pygame.math.Vector2.normalize(sun_pos - earth_pos)
-    earth_pos += direction_sun * earth_vs
-
-    direction_tangent = direction_sun.rotate(90)
-    earth_pos += direction_tangent * ((earth_vo * scale_time) / scale_dist)
-
+    direction_sun = pygame.math.Vector2.normalize(real_sun_pos - real_earth_pos)
+    gravity_a = real_a * direction_sun
+    earth_velocity += gravity_a * scale_time
+    real_earth_pos += earth_velocity * scale_time
+    earth_pos = (real_earth_pos / scale_dist) + sun_pos
 
     pygame.display.flip()
     clock.tick(60)
