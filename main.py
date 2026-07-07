@@ -71,5 +71,3 @@ while running:
 
 pygame.quit()
 
-    
-##Scale = 200 px = 1.496e11 m
