@@ -3,4 +3,5 @@ Pronounced /ʃɑːs.t̪ɾᵊ/ or śāstra, Shastra is a simple Physics simulatio
 
 The whole software follows the Unlicense license so you are basically free to do anything you want with this code. The application is made by an aspiring astrophysicist going to IB DP1, and the idea of a physics simulator is given by Gemini AI.
 *NO CODING IS DONE BY AI IN THIS PROJECT, GEMINI MERELY GAVE THE TASK WHICH I HAVE TO ACCOMPLISH, LIKE A EXAMINER. AI USE (IF ANY) WILL PURELY BE FOR THE NON-SOFTWARE TEXT SUCH AS COPILOT SUGGESTIONS FOR COMMIT DESCRIPTIONS. THE PYTHON PART IS DONE BY THE PROJECT OWNER, SOURMITTAI. THERE MAY ALSO BE USE OF AI TO LEARN THE CONCEPTS OF GITHUB AND PYTHON, BUT IT WILL NOT BE THE MAJOR CONTRIBUTOR TO THE PROJECT!*
-Also note that I am still learning Python, and may have made some minor errors in formatting and conventions in the code, alongside bugs.
+
+Also note that I am still learning Python, and may have made some minor errors in formatting and conventions in the code, alongside bugs. (By the way sorry for the caps, I just needed to Make sure you all understood how I used/will use AI in this project.
