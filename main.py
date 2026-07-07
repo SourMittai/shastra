@@ -7,13 +7,8 @@ import numpy
 G = 6.67e-11
 m1 = 1.99e30
 m2 = 5.97e24
-r = 1.496e11
-v = 2.98e4
+v = 2.94e4
 
-F = G*((m1*m2)/r**2)
-
-
-real_a = F/m2
 
 
 
@@ -38,9 +33,11 @@ earth_y = 300
 sun_pos = pygame.math.Vector2(sun_x, 300)
 real_sun_pos = pygame.math.Vector2(0, 0)
 earth_pos = pygame.math.Vector2(earth_x, earth_y)
-real_earth_pos = pygame.math.Vector2(r, 0)
+earth_start_dist = 1.49e11
+real_earth_pos = pygame.math.Vector2(earth_start_dist, 0)
 earth_velocity = pygame.math.Vector2(0, v)
-
+distance_vector = real_sun_pos - real_earth_pos
+r = distance_vector.length()
 
 running = True
 
@@ -56,10 +53,14 @@ while running:
     sun_screen_pos = (real_sun_pos / scale_dist) + sun_pos
 
     sun = pygame.draw.circle(screen,(255, 0, 0), sun_screen_pos, 10)
-    earth = pygame.draw.circle(screen, (173, 216, 230), earth_pos, 2)
+    earth = pygame.draw.circle(screen, (173, 216, 230), earth_pos, 1)
 
     # Falling mechanic
-    direction_sun = pygame.math.Vector2.normalize(real_sun_pos - real_earth_pos)
+    distance_vector = real_sun_pos - real_earth_pos
+    r = distance_vector.length()
+    F = G*((m1*m2)/r**2)
+    real_a = F/m2
+    direction_sun = pygame.math.Vector2.normalize(distance_vector)
     gravity_a = real_a * direction_sun
     earth_velocity += gravity_a * scale_time
     real_earth_pos += earth_velocity * scale_time
