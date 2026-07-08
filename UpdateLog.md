@@ -15,5 +15,5 @@
 ### Miscellaneous
 - Add 3rd body
 - Add GUI
--  Object values input
--   Selection of Number of Bodies
+  - Object values input
+  - Selection of Number of Bodies
