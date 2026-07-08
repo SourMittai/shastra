@@ -1,4 +1,4 @@
-# SHASTRA Physics Simulator
+# SHASTRA Physics Simulator [v 1.1.0]
 import pygame
 import numpy
 
@@ -7,7 +7,7 @@ import numpy
 G = 6.67e-11
 m1 = 1.99e30
 m2 = 5.97e24
-v = 2.94e4
+v = -9e3
 
 
 
@@ -20,10 +20,12 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 clock = pygame.time.Clock()
 
+real_dist = 1.496e11
 px_dist = 300 #Setting distance on screen for 1 AU
-time_real = 2629746
+time_real = 26297460
 
-scale_dist = 1.496e11 / px_dist #Setting number of px per 1 AU
+
+scale_dist = real_dist / px_dist #Setting number of px per 1 AU
 scale_time = time_real / 60 #Setting number of real world seconds per program second.
 
 #Positions of the objects:
@@ -45,8 +47,6 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    
-
 
     screen.fill((0, 0, 0))
 
@@ -56,15 +56,32 @@ while running:
     earth = pygame.draw.circle(screen, (173, 216, 230), earth_pos, 1)
 
     # Falling mechanic
-    distance_vector = real_sun_pos - real_earth_pos
-    r = distance_vector.length()
-    F = G*((m1*m2)/r**2)
-    real_a = F/m2
-    direction_sun = pygame.math.Vector2.normalize(distance_vector)
-    gravity_a = real_a * direction_sun
-    earth_velocity += gravity_a * scale_time
-    real_earth_pos += earth_velocity * scale_time
-    earth_pos = (real_earth_pos / scale_dist) + sun_pos
+    hours_real = scale_time / 3600 
+
+    while hours_real > 0:
+        if hours_real >= 1:
+            distance_vector = real_sun_pos - real_earth_pos
+            r = distance_vector.length()
+            F = G*((m1*m2)/r**2)
+            real_a = F/m2
+            direction_sun = pygame.math.Vector2.normalize(distance_vector)
+            gravity_a = real_a * direction_sun
+            earth_velocity += gravity_a * 3600
+            real_earth_pos += earth_velocity * 3600
+            earth_pos = (real_earth_pos / scale_dist) + sun_pos
+            hours_real = hours_real - 1
+        elif hours_real < 1:
+            distance_vector = real_sun_pos - real_earth_pos
+            r = distance_vector.length()
+            F = G*((m1*m2)/r**2)
+            real_a = F/m2
+            direction_sun = pygame.math.Vector2.normalize(distance_vector)
+            gravity_a = real_a * direction_sun
+            earth_velocity += gravity_a * (hours_real * 3600)
+            real_earth_pos += earth_velocity * (hours_real * 3600)
+            earth_pos = (real_earth_pos / scale_dist) + sun_pos
+            hours_real = hours_real - hours_real
+
 
     pygame.display.flip()
     clock.tick(60)
